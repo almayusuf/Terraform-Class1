@@ -22,7 +22,19 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t3.micro"
+  instance_type          = "t2.large"
   vpc_security_group_ids = [aws_security_group.ec2-class-sec-group.id]
   associate_public_ip_address = true
+}
+
+
+resource "aws_instance" "web2" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "m5.large"
+  vpc_security_group_ids = [aws_security_group.ec2-class-sec-group.id]
+  associate_public_ip_address = true
+}
+
+resource "aws_instance" "class" {
+  # (resource arguments)
 }

@@ -9,5 +9,4 @@ output "ami" {
 
 output "az" {
   value = aws_instance.web.availability_zone
-  sensitive = true
 }
