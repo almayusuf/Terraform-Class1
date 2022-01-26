@@ -17,28 +17,23 @@ data "aws_ami" "ubuntu" {
 }
 
 
-
-
-
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t2.large"
   vpc_security_group_ids = [aws_security_group.ec2-class-sec-group.id]
   associate_public_ip_address = true
+  availability_zone = "us-east-1a"
+  tags = local.common_tags
 }
 
-
-resource "aws_instance" "web2" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "m5.large"
-  vpc_security_group_ids = [aws_security_group.ec2-class-sec-group.id]
-  associate_public_ip_address = true
+resource "aws_ebs_volume" "example" {
+  availability_zone = "us-east-1a"
+  size              = 40
+  tags = local.common_tags
 }
-
-resource "aws_instance" "class" {
-  ami = "ami-08e4e35cccc6189f4"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "import"
-  }
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.example.id
+  instance_id = aws_instance.web.id
+  
 }
