@@ -28,6 +28,9 @@ resource "google_project" "testproject" {
 
 
 resource "null_resource" "set-project" {
+    triggers = {
+    always_run = "${timestamp()}"
+  }
 	provisioner "local-exec" {
 	command = "gcloud config set project ${google_project.testproject.project_id}"
 	}
