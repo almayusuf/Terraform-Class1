@@ -17,7 +17,7 @@ node {
 
                     
 	stage("Clone a Repo"){
-		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/almayusuf/jenkins-class.git']]])
+		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/almayusuf/jenkins-class.git']]])  #added to code
 		}
 	stage("Build VPC"){
 		ws("${workspace}/AWS/VPC"){
